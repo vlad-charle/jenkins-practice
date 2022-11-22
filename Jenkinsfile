@@ -7,9 +7,9 @@ pipeline {
                 echo "hello world"
                 sh 'pwd'
                 sh 'ls -l'
-                // cd node-project/app
-                // npm version patch
-                // cd .. && git add .
+                sh 'cd node-project/app'
+                sh 'npm version patch'
+                // sh 'cd .. && git add .'
                 // git commit -m "Jenkins: Increment version - patch"
                 // git push
             }
