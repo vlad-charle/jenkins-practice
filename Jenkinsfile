@@ -4,11 +4,15 @@ pipeline {
     stages {
         stage('Increment version') {
             steps {
-                cd node-project/app
-                npm version patch
-                cd .. && git add .
-                git commit -m "Jenkins: Increment version - patch"
-                git push
+                echo "hello world"
+                pwd
+                whoami
+                ls -l
+                // cd node-project/app
+                // npm version patch
+                // cd .. && git add .
+                // git commit -m "Jenkins: Increment version - patch"
+                // git push
             }
         }
     }
