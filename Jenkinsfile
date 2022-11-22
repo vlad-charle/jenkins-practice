@@ -6,8 +6,8 @@ pipeline {
             steps {
                 sh 'cd app && npm version patch'
                 sh 'git add .'
-                git commit -m "Jenkins: Increment version - patch"
-                git push
+                sh 'git commit -m "Jenkins: Increment version - patch"'
+                sh 'git push'
             }
         }
     }
