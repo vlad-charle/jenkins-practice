@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo "hello world"
                 sh 'ls -l'
-                sh 'cd app'
+                sh 'cd ./app'
                 sh 'pwd'
                 sh 'npm version patch'
                 // sh 'cd .. && git add .'
