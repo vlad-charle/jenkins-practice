@@ -9,7 +9,7 @@ pipeline {
                 sh 'git config --global user.name "jenkins"'
                 sh 'git add .'
                 sh 'git commit -m "Jenkins: Increment version - patch"'
-                sh 'git push'
+                sh 'git push origin HEAD:main'
             }
         }
     }
