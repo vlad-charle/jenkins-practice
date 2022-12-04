@@ -21,7 +21,7 @@ pipeline {
 
         stage('Run tests') {
             steps {
-                sh 'cd app && npm run test'
+                sh 'cd app && npm install && npm run test'
             }
         }
     }
