@@ -5,7 +5,7 @@ pipeline {
         stage('Increment version') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId:'github-token', usernameVariable: USER, passwordVariable: PWD)]) {
+                    withCredentials([usernamePassword(credentialsId:'github-token', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
                         sh 'cd app && npm version patch'
                         sh 'git config --global user.email "jenkins@example.com"'
                         sh 'git config --global user.name "jenkins"'
