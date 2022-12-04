@@ -21,8 +21,7 @@ pipeline {
 
         stage('Run tests') {
             steps {
-                sh 'echo "${PWD}"'
-                sh 'echo "$(ls -l)"'
+                sh 'cd app && npm run test'
             }
         }
     }
