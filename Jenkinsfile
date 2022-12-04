@@ -36,6 +36,9 @@ pipeline {
                 script {
                     def matcher = readFile('app/package.json')
                     println matcher
+                    def jsonSlurper = new JsonSlurper()
+                    def appVersion = jsonSlurper.parseText(matcher)
+                    println(appVersion.version)
                 }
             }
         }
