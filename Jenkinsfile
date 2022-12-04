@@ -33,8 +33,10 @@ pipeline {
 
         stage('Build image') {
             steps {
-                def matcher = readFile('app/package.json') =~ '"version": "(.+)"'
-                println matcher
+                script {
+                    def matcher = readFile('app/package.json') =~ '"version": "(.+)"'
+                    println matcher
+                }
             }
         }
     }
