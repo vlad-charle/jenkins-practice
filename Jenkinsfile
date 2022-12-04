@@ -34,9 +34,8 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                    def readPackageJSON = readJSON file: 'app/package.json'
-                    def appVersion = readPackageJSON.version
-                    echo "${appVersion}"
+                    def matcher = readFile('app/package.json')
+                    println matcher
                 }
             }
         }
