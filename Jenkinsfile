@@ -23,6 +23,12 @@ pipeline {
             steps {
                 sh 'cd app && npm install && npm run test'
             }
+
+            post {
+                failure {
+                    sh 'exit 1'
+                }
+            }
         }
     }
 }
