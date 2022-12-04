@@ -19,15 +19,22 @@ pipeline {
         //     }
         // }
 
-        stage('Run tests') {
-            steps {
-                sh 'cd app && npm install && npm run test'
-            }
+        // stage('Run tests') {
+        //     steps {
+        //         sh 'cd app && npm install && npm run test'
+        //     }
 
-            post {
-                failure {
-                    sh 'exit 1'
-                }
+        //     post {
+        //         failure {
+        //             sh 'exit 1'
+        //         }
+        //     }
+        // }
+
+        stage('Build image') {
+            steps {
+                def matcher = readFile('app/package.json') =~ '"version": "(.+)"'
+                println matcher
             }
         }
     }
