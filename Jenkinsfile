@@ -35,7 +35,9 @@ pipeline {
             steps {
                 script {
                     def matcher = readJSON file: 'app/package.json'
+                    def appVersion = matcher.version
                     println matcher
+                    println appVersion
                 }
             }
         }
