@@ -34,11 +34,8 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                    def matcher = readFile('app/package.json')
+                    def matcher = readJSON file: 'app/package.json'
                     println matcher
-                    def jsonSlurper = new JsonSlurper()
-                    def appVersion = jsonSlurper.parseText(matcher)
-                    println(appVersion.version)
                 }
             }
         }
