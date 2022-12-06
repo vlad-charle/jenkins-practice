@@ -36,8 +36,12 @@ pipeline {
                 script {
                     def matcher = readJSON file: 'app/package.json'
                     def appVersion = matcher.version
-                    println matcher
-                    println appVersion
+                    env.IMAGE_NAME = "$appVersion-$BUILD_NUMBER"
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "docker build -t vladsanyuk/app:$IMAGE_NAME ."
+                        sh "echo $PASS | docker login -u $USER -password-stdin"
+                        sh "docker push vladsanyuk/app:$IMAGE_NAME"
+                    }
                 }
             }
         }
