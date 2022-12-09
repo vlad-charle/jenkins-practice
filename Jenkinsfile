@@ -38,7 +38,6 @@ pipeline {
                 script {
                     registryLogin()
                     pushImage "$IMAGE_NAME"
-                    }
                 }
             }
         }
