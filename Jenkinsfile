@@ -1,3 +1,5 @@
+@Library('jenkins-shared-library')_
+
 pipeline {
     agent any
 
@@ -26,7 +28,7 @@ pipeline {
                     def matcher = readJSON file: 'app/package.json'
                     def appVersion = matcher.version
                     env.IMAGE_NAME = "$appVersion-$BUILD_NUMBER"
-                    sh "docker build -t vladsanyuk/app:$IMAGE_NAME ."
+                    buildImage "$IMAGE_NAME"
                 }
             }
         }
