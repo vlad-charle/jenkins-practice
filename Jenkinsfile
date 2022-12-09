@@ -36,9 +36,8 @@ pipeline {
         stage('Push to Docker repository') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh "docker push vladsanyuk/app:$IMAGE_NAME"
+                    registryLogin()
+                    pushImage "$IMAGE_NAME"
                     }
                 }
             }
