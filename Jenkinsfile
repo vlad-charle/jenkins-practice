@@ -7,7 +7,7 @@ pipeline {
         stage('Increment version') {
             when {
                 expression {
-                    $BRANCH_NAME == 'main'
+                    BRANCH_NAME == 'main'
                 }
             }
             steps {
@@ -30,7 +30,7 @@ pipeline {
         stage('Build image') {
             when {
                 expression {
-                    $BRANCH_NAME == 'main'
+                    BRANCH_NAME == 'main'
                 }
             }
             steps {
@@ -46,7 +46,7 @@ pipeline {
         stage('Push to Docker repository') {
             when {
                 expression {
-                    $BRANCH_NAME == 'main'
+                    BRANCH_NAME == 'main'
                 }
             }
             steps {
@@ -79,7 +79,7 @@ pipeline {
         stage('Commit to Git') {
             when {
                 expression {
-                    $BRANCH_NAME == 'main'
+                    BRANCH_NAME == 'main'
                 }
             }
             steps {
