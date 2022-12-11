@@ -1,6 +1,6 @@
 version: "3.9"
 services:
   app:
-    image: vladsanyuk/app:1.1.7-56
+    image: ${IMAGE}
     ports:
       - 3000:3000

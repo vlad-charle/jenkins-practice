@@ -4,51 +4,53 @@ pipeline {
     agent any
 
     stages {
-        // stage('Increment version') {
-        //     steps {
-        //             sh 'cd app && npm version patch'
-        //     }
-        // }
+        stage('Increment version') {
+            steps {
+                    sh 'cd app && npm version patch'
+            }
+        }
 
-        // stage('Run tests') {
-        //     steps {
-        //         sh 'cd app && npm install && npm run test'
-        //     }
+        stage('Run tests') {
+            steps {
+                sh 'cd app && npm install && npm run test'
+            }
 
-        //     post {
-        //         failure {
-        //             sh 'exit 1'
-        //         }
-        //     }
-        // }
+            post {
+                failure {
+                    sh 'exit 1'
+                }
+            }
+        }
 
-        // stage('Build image') {
-        //     steps {
-        //         script {
-        //             def matcher = readJSON file: 'app/package.json'
-        //             def appVersion = matcher.version
-        //             env.IMAGE_NAME = "$appVersion-$BUILD_NUMBER"
-        //             buildImage "$IMAGE_NAME"
-        //         }
-        //     }
-        // }
+        stage('Build image') {
+            steps {
+                script {
+                    def matcher = readJSON file: 'app/package.json'
+                    def appVersion = matcher.version
+                    env.IMAGE_NAME = "$appVersion-$BUILD_NUMBER"
+                    buildImage "$IMAGE_NAME"
+                }
+            }
+        }
 
-        // stage('Push to Docker repository') {
-        //     steps {
-        //         script {
-        //             registryLogin()
-        //             pushImage "$IMAGE_NAME"
-        //         }
-        //     }
-        // }
+        stage('Push to Docker repository') {
+            steps {
+                script {
+                    registryLogin()
+                    pushImage "$IMAGE_NAME"
+                }
+            }
+        }
 
         stage('Deploy to EC2') {
             steps {
                 script {
-                    def dockerCompose = "docker-compose -f docker-compose.yaml up -d"
+                    def ec2 = "ec2-user@18.232.76.231"
+                    def executeScript = "bash ./server-script.sh ${IMAGE_NAME}"
                     sshagent(['ec2-server-key']) {
-                        sh "scp docker-compose.yaml ec2-user@18.232.76.231:/home/ec2-user"
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@18.232.76.231 ${dockerCompose}"
+                        sh "scp server-script.sh ${ec2}:/home/ec2-user"
+                        sh "scp docker-compose.yaml ${ec2}:/home/ec2-user"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2} ${executeScript}"
                     }
                 }
             }
