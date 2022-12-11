@@ -42,6 +42,18 @@ pipeline {
             }
         }
 
+        stage('Deploy to EC2') {
+            steps {
+                script {
+                    def dockerCompose = "docker-compose -f docker-compose.yaml -d"
+                    sshagent(['ec2-server-key']) {
+                        sh "scp docker-compose.yaml ec2-user@18.232.76.231:/home/ec2-user"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@18.232.76.231 ${dockerCompose}"
+                    }
+                }
+            }
+        }
+
         stage('Commit to Git') {
             steps {
                 script {
