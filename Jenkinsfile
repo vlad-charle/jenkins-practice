@@ -5,6 +5,9 @@ pipeline {
 
     stages {
         stage('Increment version') {
+            expression {
+                $BRANCH_NAME == 'main'
+            }
             steps {
                     sh 'cd app && npm version patch'
             }
