@@ -5,8 +5,10 @@ pipeline {
 
     stages {
         stage('Increment version') {
-            expression {
-                $BRANCH_NAME == 'main'
+            when {
+                expression {
+                    $BRANCH_NAME == 'main'
+                }
             }
             steps {
                     sh 'cd app && npm version patch'
@@ -26,8 +28,10 @@ pipeline {
         }
 
         stage('Build image') {
-            expression {
-                $BRANCH_NAME == 'main'
+            when {
+                expression {
+                    $BRANCH_NAME == 'main'
+                }
             }
             steps {
                 script {
@@ -40,8 +44,10 @@ pipeline {
         }
 
         stage('Push to Docker repository') {
-            expression {
-                $BRANCH_NAME == 'main'
+            when {
+                expression {
+                    $BRANCH_NAME == 'main'
+                }
             }
             steps {
                 script {
@@ -52,8 +58,10 @@ pipeline {
         }
 
         stage('Deploy to EC2') {
-            expression {
-                $BRANCH_NAME == 'main'
+            when {
+                expression {
+                    $BRANCH_NAME == 'main'
+                }
             }
             steps {
                 script {
@@ -69,8 +77,10 @@ pipeline {
         }
 
         stage('Commit to Git') {
-            expression {
-                $BRANCH_NAME == 'main'
+            when {
+                expression {
+                    $BRANCH_NAME == 'main'
+                }
             }
             steps {
                 script {
